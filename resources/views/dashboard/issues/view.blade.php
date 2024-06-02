@@ -24,30 +24,35 @@
                     <div class="col-lg-4">
                         <div class="task-info">
                             <h4>  ملف القضية </h4>
-                            <div>
-                                <h6>    عنوان القضية : </h6>
-                                <h5> القضية رقم 1123 </h5>
-                            </div>
-                            <div>
-                                <h6> رقم القضية : </h6>
-                                <h5> 12/4/2024 </h5>
-                            </div>
-                            <div>
-                                <h6> الحالة : </h6>
-                                <h5> جاري البدء </h5>
-                            </div>
-                            <div>
-                                <h6> النوع : </h6>
-                                <h5> عاجل </h5>
-                            </div>
-                            <div>
-                                <h6>  المرحلة : </h6>
-                                <h5> عاجل </h5>
-                            </div>
-                            <div>
-                                <h6>  التاريخ : </h6>
-                                <p>  12/4/2024 </p>
-                            </div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th class="ps-0" scope="row"> عنوان القضية :</th>
+                                        <td class="text-muted">{{ $Issue->name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="ps-0" scope="row"> رقم القضية :</th>
+                                        <td class="text-muted">{{ $Issue->issue_number }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="ps-0" scope="row">الحالة : </th>
+                                        <td class="text-muted"> {{ $Issue->IssuesCase_name}} </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="ps-0" scope="row"> النوع :</th>
+                                        <td class="text-muted">{{ $Issue->IsuesType_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="ps-0" scope="row">  المرحلة :</th>
+                                        <td class="text-muted">{{ $Issue->IssuesPhase_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="ps-0" scope="row">  التاريخ : </th>
+                                        <td class="text-muted">{{ \Carbon\Carbon::parse($Issue->created_at)->format('Y/m/d') }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                           
                         </div>
                     </div>
 
@@ -61,36 +66,55 @@
                         </div>
 
                         <div id="route1">
-                            <div class="col-lg-10">
+                            <div class="col-lg-12">
                                 <div class="task-info">
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <div>
-                                                <h6> اسم العميل:</h6>
-                                                <h5><a href="#">لقضية  1123</a></h5>
-                                            </div>
-                                            <div>
-                                                <h6> صفة العميل:</h6>
-                                                <h5>12/4/2024</h5>
-                                            </div>
-                                            <div>
-                                                <h6>الخصم:</h6>
-                                                <h5>جاري البدء</h5>
-                                            </div>
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <th class="ps-0" scope="row"> اسم العميل  :</th>
+                                                        <td class="text-muted">{{ $Issue->customer->name }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="ps-0" scope="row"> صفة العميل  :</th>
+                                                        <td class="text-muted">{{ $Issue->customer->type }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="ps-0" scope="row">هاتف العميل : </th>
+                                                        <td class="text-muted"> {{ $Issue->customer->phone}} </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="ps-0" scope="row"> اسم الخصم :</th>
+                                                        <td class="text-muted">{{ $Issue->contender_name }}</td>
+                                                    </tr>
+                                                   
+                                                </tbody>
+                                            </table>
                                         </div>
                                         <div class="col-lg-6">
-                                            <div>
-                                                <h6>رقم هاتف الخصم:</h6>
-                                                <h5>عاجل</h5>
-                                            </div>
-                                            <div>
-                                                <h6>عنوان الخصم:</h6>
-                                                <h5>عاجل</h5>
-                                            </div>
-                                            <div>
-                                                <h6>محامي الخصم :</h6>
-                                                <h5>م بمعنى كامل.</h5>
-                                            </div>
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <th class="ps-0" scope="row"> هاتف الخصم :</th>
+                                                        <td class="text-muted">{{ $Issue->contender_phone }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="ps-0" scope="row"> عنوان الخصم :</th>
+                                                        <td class="text-muted">{{ $Issue->IsuesType_name }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="ps-0" scope="row"> محامي الخصم :</th>
+                                                        <td class="text-muted">{{ $Issue->contender_attorney }}</td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <th class="ps-0" scope="row">هاتف محامي الخصم : </th>
+                                                        <td class="text-muted"> {{ $Issue->contender_phone}} </td>
+                                                    </tr>
+                                                   
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -98,30 +122,34 @@
                             </div>
                         </div>
                         <div id="route2">
-                            <div class="col-lg-10">
+                            <div class="col-lg-12">
                                 <div class="task-info">
-                                    <h4>   المحكمة </h4>
-                                    <div>
-                                        <h6>     اسم المحكمة : </h6>
-                                        <h5> القضية رقم 1123 </h5>
-                                    </div>
-                                    <div>
-                                        <h6>  المدينة : </h6>
-                                        <h5> 12/4/2024 </h5>
-                                    </div>
-                                    <div>
-                                        <h6> الدائرة : </h6>
-                                        <h5> جاري البدء </h5>
-                                    </div>
-                                    <div>
-                                        <h6> درجة الترافع : </h6>
-                                        <h5> عاجل </h5>
-                                    </div>
-                                    <div>
-                                        <h6>  اسم القاضي : </h6>
-                                        <h5> عاجل </h5>
-                                    </div>
-                                   
+                                    <h4>  المحكمة</h4>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <th class="ps-0" scope="row"> اسم المحكمة :</th>
+                                                <td class="text-muted">{{ $Issue->court }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="ps-0" scope="row">  اسم القاضي  :</th>
+                                                <td class="text-muted">{{ $Issue->judge_name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="ps-0" scope="row"> المدينة:</th>
+                                                <td class="text-muted">{{ $Issue->court_city }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="ps-0" scope="row">الدائرة  : </th>
+                                                <td class="text-muted"> {{ $Issue->court_crcle}} </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="ps-0" scope="row"> درجة الترافع  :</th>
+                                                <td class="text-muted">{{ $Issue->pleading_degree }}</td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>

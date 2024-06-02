@@ -184,7 +184,7 @@
                         </p>
                     </td>
                     <td>
-                        <div>  {{$item->created_at}}</div>
+                        <div> {{ \Carbon\Carbon::parse($item->created_at)->format('Y/m/d') }}</div>
                     </td>
                     <td>
                         <div class="d-flex align-items-center justify-content-center">

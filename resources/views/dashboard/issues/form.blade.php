@@ -1,5 +1,7 @@
 @extends('dashboard.layouts.app')
-
+@section('header')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css" rel="stylesheet" />
+@endsection
 @section('content')
 
 <div class="container user-page">
@@ -13,7 +15,8 @@
         </nav>
 
     </div>
-    <form>
+    <form id="myForm" autocomplete="off" class="needs-validation" novalidate method="POST" action="{{route('issues.store')}}"  enctype="multipart/form-data">
+        @csrf
         <div class="user-info">
             <div class="header-title">
                 <h5> البيانات القضية </h5>
@@ -25,27 +28,25 @@
                             <div class="form-input d-flex flex-column">
                                 <label class="mb-2" for="firstName"> عنوان القضية </label>
                                 <div class="input-parent-valid">
-                                    <input name="firstName" type="text" placeholder=" عنوان القضية" value=""
-                                        onChange="" />
+                                    <input name="name" type="text" placeholder=" عنوان القضية" value=""/>
                                 </div>
                             </div>
                             <div class="form-input d-flex flex-column">
                                 <label class="mb-2" for="lastName">  رقم القضية  </label>
                                 <div class="input-parent-valid">
-                                    <input name="lastName" type="text" placeholder=" رقم القضية " value=""
-                                        onChange="" />
+                                    <input name="issue_number" type="text" placeholder=" رقم القضية " value="" onChange="" />
                                 </div>    
                             </div>
                             <div class="form-input d-flex flex-column">
-                                <label class="mb-2" for="caseNumber"> تاريخ القضية </label>
+                                <label class="mb-2" for="issue_date"> تاريخ القضية </label>
                                     <div class="input-parent-valid">
-                                        <input name="caseNumber" type="date" placeholder="اختر تاريخ القضية" value="" onChange="" />
+                                        <input name="issue_date" type="date" placeholder="اختر تاريخ القضية" value="" onChange="" />
                                     </div>
                             </div>
                             <div class="form-input d-flex flex-column">
-                                <label class="mb-2" for="lastName">  مبلغ القضية  </label>
+                                <label class="mb-2" for="issue_amount">  مبلغ القضية  </label>
                                 <div class="input-parent-valid">
-                                    <input name="lastName" type="text" placeholder=" مبلغ القضية " value=""
+                                    <input name="issue_amount" type="text" placeholder=" مبلغ القضية " value=""
                                         onChange="" />
                                 </div>    
                             </div>
@@ -54,15 +55,17 @@
                         <div class="col-lg-1"></div><!-- Empty column for spacing -->
                         <div class="col-lg-5 pl-lg-3">
                             <div class="form-input d-flex flex-column">
-                                <label class="mb-2" for="caseType"> اختر عميل </label>
+                                <label class="mb-2" for="customer_id"> اختر عميل </label>
                                 <div class="input-parent-valid">
-                                    <select name="caseType" id="caseType" class="form-control">
+                                    <select name="customer_id" id="customer_id" class="form-control">
                                         <option value=""> اختر  عميل </option>
-                                        
+                                        @foreach($Customers as $item)
+                                         <option value="{{$item->id}}">{{$item->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-input d-flex flex-column">
+                            {{-- <div class="form-input d-flex flex-column">
                                 <label class="mb-2" for="caseType"> اختر صفة عميل </label>
                                 <div class="input-parent-valid">
                                     <select name="caseType" id="caseType" class="form-control">
@@ -70,13 +73,15 @@
                                         
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="form-input d-flex flex-column">
-                                <label class="mb-2" for="caseType"> اختر نوع القضية </label>
+                                <label class="mb-2" for="isues_type_id"> اختر نوع القضية </label>
                                     <div class="input-parent-valid">
-                                        <select name="caseType" id="caseType" class="form-control">
+                                        <select name="isues_type_id" id="isues_type_id" class="form-control">
                                             <option value=""> اختر نوع القضية </option>
-                                            
+                                            @foreach($IsuesType as $item)
+                                             <option value="{{$item->id}}">{{$item->name}}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                             </div>
@@ -85,11 +90,8 @@
                     </div>
                 </div>
                 <label  for="caseType">   ملفات القضية </label>
-                <div id="drop-area2">
-                    <i class="fa-solid fa-cloud-arrow-up"></i>
-                    <h6> إستيراد ملف </h6>
-                    <p> قم بسحب أو إسقاط الملف هنا </p>
-                    <input type="file" id="fileInput2" multiple style="display: none;">
+                <div class="dropzone " id="drop-area2">
+                    <input name="files[]" type="file" class="dropify" multiple>
                 </div>
                 
             </div>
@@ -106,42 +108,42 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-input  d-flex flex-column">
-                                    <label class="mb-2" for="firstName">  اسم الخصم </label>
+                                    <label class="mb-2" for="contender_name">  اسم الخصم </label>
                                     <div class="input-parent-valid">
-                                        <input name="firstName" type="text" placeholder="  اسم الخصم"
+                                        <input name="contender_name" type="text" placeholder="  اسم الخصم"
                                             value="" onChange="" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-input  d-flex flex-column">
-                                    <label class="mb-2" for="firstName">  رقم هاتف الخصم </label>
+                                    <label class="mb-2" for="contender_phone">  رقم هاتف الخصم </label>
                                     <div class="input-parent-valid">
-                                        <input name="firstName" type="text" placeholder="  رقم هاتف الخصم"
+                                        <input name="contender_phone" type="text" placeholder="  رقم هاتف الخصم"
                                             value="" onChange="" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-input  d-flex flex-column">
-                                    <label class="mb-2" for="firstName">   عنوان الخصم </label>
+                                    <label class="mb-2" for="contender_address">   عنوان الخصم </label>
                                     <div class="input-parent-valid">
-                                        <input name="firstName" type="text" placeholder="  عنوان الخصم"
+                                        <input name="contender_address" type="text" placeholder="  عنوان الخصم"
                                             value="" onChange="" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-input d-flex flex-column">
-                                    <label class="mb-2" for="text"> محامي الخصم </label>
-                                    <input name="text" type="text" placeholder="محامي الخصم " value=""
+                                    <label class="mb-2" for="contender_attorney"> محامي الخصم </label>
+                                    <input name="contender_attorney" type="text" placeholder="محامي الخصم " value=""
                                         onChange="" />
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-input d-flex flex-column">
-                                    <label class="mb-2" for="text"> رقم هاتف محامي الخصم </label>
-                                    <input name="text" type="text" placeholder="رقم هاتف محامي الخصم "
+                                    <label class="mb-2" for="contender_attorney_phone"> رقم هاتف محامي الخصم </label>
+                                    <input name="contender_attorney_phone" type="text" placeholder="رقم هاتف محامي الخصم "
                                         value="" onChange="" />
                                 </div>
                             </div>
@@ -161,42 +163,42 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="form-input  d-flex flex-column">
-                                    <label class="mb-2" for="firstName">  اسم المحكمة </label>
+                                    <label class="mb-2" for="court">  اسم المحكمة </label>
                                     <div class="input-parent-valid">
-                                        <input name="firstName" type="text" placeholder="  اسم المحكمة"
+                                        <input name="court" type="text" placeholder="  اسم المحكمة"
                                             value="" onChange="" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-input  d-flex flex-column">
-                                    <label class="mb-2" for="firstName">   المدينة </label>
+                                    <label class="mb-2" for="court_city">   المدينة </label>
                                     <div class="input-parent-valid">
-                                        <input name="firstName" type="text" placeholder="   المدينة"
+                                        <input name="court_city" type="text" placeholder="   المدينة"
                                             value="" onChange="" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-12">
                                 <div class="form-input  d-flex flex-column">
-                                    <label class="mb-2" for="firstName">  الدائرة  </label>
+                                    <label class="mb-2" for="court_crcle">  الدائرة  </label>
                                     <div class="input-parent-valid">
-                                        <input name="firstName" type="text" placeholder=" الدائرة"
+                                        <input name="court_crcle" type="text" placeholder=" الدائرة"
                                             value="" onChange="" />
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-input d-flex flex-column">
-                                    <label class="mb-2" for="text">   اسم القاضي </label>
-                                    <input name="text" type="text" placeholder="اسم القاضي"
+                                    <label class="mb-2" for="judge_name">   اسم القاضي </label>
+                                    <input name="judge_name" type="text" placeholder="اسم القاضي"
                                         value="" onChange="" />
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-input d-flex flex-column">
-                                    <label class="mb-2" for="text"> درجة الترافع  </label>
-                                    <input name="text" type="text" placeholder="درجة الترافع "
+                                    <label class="mb-2" for="pleading_degree"> درجة الترافع  </label>
+                                    <input name="pleading_degree" type="text" placeholder="درجة الترافع "
                                         value="" onChange="" />
                                 </div>
                             </div>
@@ -297,5 +299,23 @@
         </div>
     </form>    
 </div>
+@endsection
+@section('footer')
+<script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Dropify
+        $('.dropify').dropify({
+            messages: {
+                'default': '<span style="font-size: 12px;">قم بسحب وإفلات الملف هنا أو انقر لتحديد الملف</span>',
+                'replace': '<span style="font-size: 12px;">قم بسحب وإفلات الملف أو انقر لتحديد الملف</span>',
+                'remove': '<span style="font-size: 12px;">إزالة</span>',
+                'error': '<span style="font-size: 12px;">عفواً، حدث خطأ ما.</span>'
+            }
+        });
+    });
+</script>
 
 @endsection

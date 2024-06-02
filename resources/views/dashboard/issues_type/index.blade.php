@@ -84,19 +84,19 @@
                     
                     </div>
                     <div class="modal-body">
-                        <form action="#" method="POST">
+                        <form action="{{route('issues_type.store')}}" method="POST">
                             @csrf
                             <div class="mb-3">
-                                <label for="case_type" class="form-label">نوع القضية</label>
-                                <input type="text" class="form-control" id="case_type" name="case_type" required>
+                                <label for="name" class="form-label">نوع القضية</label>
+                                <input type="text" class="form-control" id="name" name="name" required>
                             </div>
-                            <div class="mb-3">
+                            {{-- <div class="mb-3">
                                 <label for="add_date" class="form-label">تاريخ الإضافة</label>
                                 <input type="date" class="form-control" id="add_date" name="add_date" required>
-                            </div>
+                            </div> --}}
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
-                                <button type="button" class="btn btn-primary">حفظ </button>
+                                <button type="submit" class="btn btn-primary">حفظ </button>
                             </div>
                         </form>
                     </div>
@@ -185,13 +185,14 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach($IsuesType as $item)
                 <tr>
                     <td> <input class="form-check-input checkall" type="checkbox" value="" id="flexCheckChecked"> </td>
                     <td>
-                        <div> نوع القضية1 </div>
+                        <div> {{$item->name}}</div>
                     </td>
                     <td>
-                        <div> 0102/2/1 </div>
+                        <div>{{ \Carbon\Carbon::parse($item->created_at)->format('Y/m/d') }} </div>
                     </td>
                     <td>
                         <div class="d-flex align-items-center justify-content-center">
@@ -200,13 +201,13 @@
                                     data-bs-toggle="dropdown" aria-expanded="false"></i>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <div class="d-flex align-items-center justify-content-between sec">
-                                        <a  data-bs-toggle="modal" data-bs-target="#editModal">
+                                        <a  data-bs-toggle="modal" data-bs-target="#editModal{{$item->id}}">
                                             <span> تعديل </span>     
                                         </a>
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between sec delet-sec">
-                                        <a  data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                        <a  data-bs-toggle="modal" data-bs-target="#deleteModal{{$item->id}}">
                                             <span> حذف </span>     
                                         </a>
                                         <i class="fa-regular fa-trash-can"></i>
@@ -219,7 +220,7 @@
                     </td>
                 </tr>
                 <!-- edit Modal -->
-                <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class="modal fade" id="editModal{{$item->id}}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -227,19 +228,20 @@
                         
                         </div>
                         <div class="modal-body">
-                            <form action="#" method="POST">
+                            <form action="{{ route('issues_type.update', $item->id) }}" method="POST">
                                 @csrf
+                                @method('PUT')
                                 <div class="mb-3">
-                                    <label for="case_type" class="form-label">نوع القضية</label>
-                                    <input type="text" class="form-control" id="case_type" name="case_type" required>
+                                    <label for="name" class="form-label">نوع القضية</label>
+                                    <input type="text" class="form-control" id="name" value="{{$item->name}}" name="name" required>
                                 </div>
-                                <div class="mb-3">
+                                {{-- <div class="mb-3">
                                     <label for="add_date" class="form-label">تاريخ الإضافة</label>
                                     <input type="date" class="form-control" id="add_date" name="add_date" required>
-                                </div>
+                                </div> --}}
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
-                                    <button type="button" class="btn btn-primary">حفظ </button>
+                                    <button type="submit" class="btn btn-primary">تعديل </button>
                                 </div>
                             </form>
                         </div>
@@ -248,7 +250,7 @@
                     </div>
                 </div>
                 <!-- delete Modal  -->
-                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+                <div class="modal fade" id="deleteModal{{$item->id}}" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
                     <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -256,12 +258,13 @@
                         
                         </div>
                         <div class="modal-body">
-                            <form action="#" method="POST">
+                            <form action="{{ route('issues_type.destroy', $item->id) }}" method="POST">
                                 @csrf
+                                @method('DELETE')
                                 <h2 class="modal-title fs-5" id="deleteModal">   متأكد من حذف نوع القضية ؟</h2>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
-                                    <button type="button" class="btn btn-danger">حذف </button>
+                                    <button type="submit" class="btn btn-danger">حذف </button>
                                 </div>
                             </form>
                         </div>
@@ -269,6 +272,7 @@
                     </div>
                     </div>
                 </div>
+                @endforeach
             </tbody>
         </table>
         <div class="d-flex align-items-center justify-content-between mt-2 pagen-parent">

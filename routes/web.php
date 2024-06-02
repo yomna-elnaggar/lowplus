@@ -33,7 +33,13 @@ Route::group(
 });
 
 Route::resource('customer', CustomerController::class);
+
 Route::resource('issues', IssuesController::class);
+Route::post('/issues/update-case/{id}', [IssuesController::class, 'updateCase']);
+Route::post('/issues/update-phase/{id}', [IssuesController::class, 'updatePhase']);
+
+
+
 Route::resource('issues_type', IssuesTypeController::class);
 Route::resource('issues_case', IssuesCaseController::class);
 Route::resource('issues_phase', IssuesPhaseController::class);
