@@ -1,7 +1,5 @@
 @extends('dashboard.layouts.app')
 
-
-
 @section('content')
 
 <div class="container projects-page">
@@ -108,8 +106,7 @@
                         <div class="task-btns mb-6">
                             <button class="preview-route1 active-preview">معلومات العميل</button>
                             <button class="preview-route2">القضايا</button>
-                            <button class="preview-route3">الجلسات <span class="start-num">10</span></button>
-                            <button class="preview-route4">الملفات <span class="start-num">8</span></button>
+                            <button class="preview-route3">الملفات <span class="start-num">8</span></button>
                         </div>
 
                         <div id="route1">
@@ -160,45 +157,26 @@
 
                         <div id="route2" style="display: none;">
                             <div class="all-files">
-                                <button class="btn btn-primary mb-3" id="addFilesBtn">إضافة قضية</button>
+                                <button class="btn btn-primary mb-3" id="addFilesBtn">
+                                    <a href="{{url('/issues/create')}}" style="color: white; text-decoration: none;"> 
+                                        <span> <i class="fa-solid fa-plus"></i> </span>إضافة قضية جديدة
+                                     </a>
+                                </button>
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th scope="col">المحكمة</th>
-                                                <th scope="col">المدينة</th>
-                                                <th scope="col">الدائرة</th>
-                                                <th scope="col">الموظف</th>
+                                                <th scope="col">الاسم</th>
                                                 <th scope="col">التاريخ</th>
-                                                <th scope="col">الإجراءات</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach ($customer->issues as $item)
                                             <tr>
-                                                <td>علي عبدالهادي علي</td>
-                                                <td>01022886619</td>
-                                                <td>علي عبدالهادي علي</td>
-                                                <td>علي عبدالهادي علي</td>
-                                                <td>01022886619</td>
-                                                <td>
-                                                    <div class="d-flex align-items-center justify-content-center">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                        <div class="dropdown">
-                                                            <i class="fa-solid fa-ellipsis-vertical" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                <div class="d-flex align-items-center justify-content-between sec">
-                                                                    <p>تعديل</p>
-                                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                                </div>
-                                                                <div class="d-flex align-items-center justify-content-between sec">
-                                                                    <p>حذف</p>
-                                                                    <i class="fa-regular fa-trash-can"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
+                                                <td><a href="{{route('issues.show',[$item->id])}}">{{ $item->name}} </a></td>
+                                                <td>{{ \Carbon\Carbon::parse($item->created_at)->format('Y/m/d') }}</td>
                                             </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -206,53 +184,6 @@
                         </div>
 
                         <div id="route3" style="display: none;">
-                            <div class="all-files">
-                                <button class="btn btn-primary mb-3" id="addFilesBtn">إضافة جلسة</button>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead>
-                                            <tr>
-                                                <th scope="col">المحكمة</th>
-                                                <th scope="col">المدينة</th>
-                                                <th scope="col">الدائرة</th>
-                                                <th scope="col">الموظف</th>
-                                                <th scope="col">التاريخ</th>
-                                                <th scope="col">الإجراءات</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>علي عبدالهادي علي</td>
-                                                <td>01022886619</td>
-                                                <td>علي عبدالهادي علي</td>
-                                                <td>علي عبدالهادي علي</td>
-                                                <td>01022886619</td>
-                                                <td>
-                                                    <div class="d-flex align-items-center justify-content-center">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                        <div class="dropdown">
-                                                            <i class="fa-solid fa-ellipsis-vertical" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                <div class="d-flex align-items-center justify-content-between sec">
-                                                                    <p>تعديل</p>
-                                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                                </div>
-                                                                <div class="d-flex align-items-center justify-content-between sec">
-                                                                    <p>حذف</p>
-                                                                    <i class="fa-regular fa-trash-can"></i>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="route4" style="display: none;">
                             <div class="all-files">
                                 <div class="files-uploaded mb-3">
                                     <button class="btn btn-primary mb-3" id="addFilesBtn">إضافة ملف</button>
@@ -294,7 +225,6 @@
                                 </div>
                             </div>
                         </div>
-
                         
                     </div>
                 </div>
@@ -305,107 +235,41 @@
 
 @endsection
 
-
 @section('footer')
 <script>
     $(document).ready(function() {
-        $('#route2, #route3, #route4').hide();
+        $('#route2, #route3').hide();
         $('.preview-route1').addClass('active-preview');
 
         $('.preview-route1').click(function() {
             $('#route1').show();
-            $('#route2, #route3, #route4').hide();
+            $('#route2, #route3').hide();
             $('.preview-route1').addClass('active-preview');
-            $('.preview-route2, .preview-route3, .preview-route4').removeClass('active-preview');
+            $('.preview-route2, .preview-route3').removeClass('active-preview');
         });
 
         $('.preview-route2').click(function() {
             $('#route2').show();
-            $('#route1, #route3, #route4').hide();
+            $('#route1, #route3').hide();
             $('.preview-route2').addClass('active-preview');
-            $('.preview-route1, .preview-route3, .preview-route4').removeClass('active-preview');
+            $('.preview-route1, .preview-route3').removeClass('active-preview');
         });
 
         $('.preview-route3').click(function() {
             $('#route3').show();
-            $('#route1, #route2, #route4').hide();
+            $('#route1, #route2').hide();
             $('.preview-route3').addClass('active-preview');
-            $('.preview-route1, .preview-route2, .preview-route4').removeClass('active-preview');
-        });
-
-        $('.preview-route4').click(function() {
-            $('#route4').show();
-            $('#route1, #route2, #route3').hide();
-            $('.preview-route4').addClass('active-preview');
-            $('.preview-route1, .preview-route2, .preview-route3').removeClass('active-preview');
+            $('.preview-route1, .preview-route2').removeClass('active-preview');
         });
     });
 </script>
 
 <script>
 const dropArea = document.getElementById('drop-area');
-
-['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-    dropArea.addEventListener(eventName, preventDefaults, false);
-});
-
-function preventDefaults(e) {
-    e.preventDefault();
-    e.stopPropagation();
-}
-
-['dragenter', 'dragover'].forEach(eventName => {
-    dropArea.addEventListener(eventName, highlight, false);
-});
-
-['dragleave', 'drop'].forEach(eventName => {
-    dropArea.addEventListener(eventName, unhighlight, false);
-});
-
-function highlight() {
-    dropArea.classList.add('active');
-}
-
-function unhighlight() {
-    dropArea.classList.remove('active');
-}
-
-dropArea.addEventListener('drop', handleDrop, false);
-
-function handleDrop(e) {
-    const dt = e.dataTransfer;
-    const files = dt.files;
-
-    handleFiles(files);
-}
-
-function handleFiles(files) {
-    [...files].forEach(uploadFile);
-}
-
-function uploadFile(file) {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    // You can perform further actions here, like uploading the file to a server
-    console.log('File uploaded:', file.name);
-}
-
-const fileInput = document.getElementById('fileInput');
-fileInput.addEventListener('change', function() {
-    handleFiles(this.files);
-});
-
-// Allow click on the drop area to trigger file input click
-dropArea.addEventListener('click', function() {
-    fileInput.click();
-});
-</script>
-
-<script>
 const dropArea2 = document.getElementById('drop-area2');
 
 ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, preventDefaults, false);
     dropArea2.addEventListener(eventName, preventDefaults, false);
 });
 
@@ -415,21 +279,24 @@ function preventDefaults(e) {
 }
 
 ['dragenter', 'dragover'].forEach(eventName => {
+    dropArea.addEventListener(eventName, highlight, false);
     dropArea2.addEventListener(eventName, highlight, false);
 });
 
 ['dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, unhighlight, false);
     dropArea2.addEventListener(eventName, unhighlight, false);
 });
 
-function highlight() {
-    dropArea2.classList.add('active');
+function highlight(e) {
+    e.currentTarget.classList.add('active');
 }
 
-function unhighlight() {
-    dropArea2.classList.remove('active');
+function unhighlight(e) {
+    e.currentTarget.classList.remove('active');
 }
 
+dropArea.addEventListener('drop', handleDrop, false);
 dropArea2.addEventListener('drop', handleDrop, false);
 
 function handleDrop(e) {
@@ -451,12 +318,19 @@ function uploadFile(file) {
     console.log('File uploaded:', file.name);
 }
 
+const fileInput = document.getElementById('fileInput');
 const fileInput2 = document.getElementById('fileInput2');
+fileInput.addEventListener('change', function() {
+    handleFiles(this.files);
+});
 fileInput2.addEventListener('change', function() {
     handleFiles(this.files);
 });
 
 // Allow click on the drop area to trigger file input click
+dropArea.addEventListener('click', function() {
+    fileInput.click();
+});
 dropArea2.addEventListener('click', function() {
     fileInput2.click();
 });

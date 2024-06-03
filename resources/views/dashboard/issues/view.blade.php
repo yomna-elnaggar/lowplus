@@ -155,59 +155,31 @@
                         </div>
                         <div id="route3">
                             <div class="all-files">
-                                <button class="btn btn-primary mb-3" id="addFilesBtn">إضافة جلسة</button>
+                                <button class="btn btn-primary mb-3" id="addFilesBtn">
+                                    <a href="{{url('/sessions/create')}}" style="color: white; text-decoration: none;"> 
+                                        <span> <i class="fa-solid fa-plus"></i> </span>إضافة الجلسة جديدة
+                                    </a> 
+
+                                </button>
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead>
-                                            <tr>
-                                                
-                                                <th scope="col">المحكمة</th>
-                                                <th scope="col">المدينة </th>
-                                                <th scope="col">الدائرة</th>
-                                                <th scope="col">الموظف</th>
+                                            <tr> 
+                                                <th scope="col">الاسم</th>
                                                 <th scope="col">التاريخ</th>
-                                                <th scope="col">الإجراءات</th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            @foreach ($Issue->sessions as $item)
                                             <tr>
                                                 <td>
-                                                    <div> علي عبدالهادي علي </div>
+                                                    <div>{{$item->name}}</div>
                                                 </td>
                                                 <td>
-                                                    <div> 01022886619 </div>
-                                                </td>
-                                                <td>
-                                                    <div> علي عبدالهادي علي </div>
-                                                </td>
-                                                <td>
-                                                    <div> علي عبدالهادي علي </div>
-                                                </td>
-                                                <td>
-                                                    <div> 01022886619 </div>
-                                                </td>
-                                                <td>
-                                                    <div class="d-flex align-items-center justify-content-center">
-                                                        <i class="fa-solid fa-eye"></i>
-                                                        
-                                                        <div class="dropdown">
-                                                            <i class="fa-solid fa-ellipsis-vertical" id="dropdownMenuButton"
-                                                                data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                                <div class="d-flex align-items-center justify-content-between sec">
-                                                                    <p> تعديل </p>
-                                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                                </div>
-                                                                <div class="d-flex align-items-center justify-content-between sec">
-                                                                    <p> حذف </p>
-                                                                    <i class="fa-regular fa-trash-can"></i>
-                                                                </div>
-                            
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    <div> {{ \Carbon\Carbon::parse($item->sessionDateTime)->format('Y/m/d H:i') }} </div>
                                                 </td>
                                             </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div>
@@ -265,61 +237,42 @@
                         <div id="route5">
                             <div class="all-files">
                                 <div class="files-uploaded mb-3">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <i class="fa-light fa-file-lines"></i>
-                                            <div class="mx-3">
-                                                <h6> ملف القضية - pdf </h6>
-                                                <p class="mb-0"> عبد الحميد الس - 21/4/2024 - 12:00 AM </p>
-                                            </div>
-                                        </div>
-                                        <div class="dropdown">
-                                            <i class="fa-solid fa-ellipsis-vertical" id="dropdownMenuButton"
-                                                data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <div class="d-flex align-items-center justify-content-between sec">
-                                                    <p> تعديل </p>
-                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                </div>
-                                                <div
-                                                    class="d-flex align-items-center justify-content-between sec delet-sec">
-                                                    <p> حذف </p>
-                                                    <i class="fa-regular fa-trash-can"></i>
-                                                </div>
-
-                                            </div>
+                                    <button class="btn btn-primary mb-3" id="addFilesBtn">إضافة ملف</button>
+                                    <div class="uploaded">
+                                        <p>case_files.xlsx</p>
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <i class="fa-solid fa-eye"></i>
+                                            <i class="fa-solid fa-download"></i>
+                                            <i class="fa-regular fa-trash-can"></i>
                                         </div>
                                     </div>
-
+                                    <div class="uploaded">
+                                        <p>case_files.xlsx</p>
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <i class="fa-solid fa-eye"></i>
+                                            <i class="fa-solid fa-download"></i>
+                                            <i class="fa-regular fa-trash-can"></i>
+                                        </div>
+                                    </div>
+                                    <div class="uploaded">
+                                        <p>case_files.xlsx</p>
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <i class="fa-solid fa-eye"></i>
+                                            <i class="fa-solid fa-download"></i>
+                                            <i class="fa-regular fa-trash-can"></i>
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div class="files-uploaded mb-3">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <i class="fa-light fa-file-lines"></i>
-                                            <div class="mx-3">
-                                                <h6> ملف القضية - pdf </h6>
-                                                <p class="mb-0"> عبد الحميد السيد - 21/4/2024 - 12:00 AM </p>
-                                            </div>
-                                        </div>
-                                        <div class="dropdown">
-                                            <i class="fa-solid fa-ellipsis-vertical" id="dropdownMenuButton"
-                                                data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <div class="d-flex align-items-center justify-content-between sec">
-                                                    <p> تعديل </p>
-                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                </div>
-                                                <div
-                                                    class="d-flex align-items-center justify-content-between sec delet-sec">
-                                                    <p> حذف </p>
-                                                    <i class="fa-regular fa-trash-can"></i>
-                                                </div>
-
-                                            </div>
+                                <div class="container col-lg-8">
+                                    <div class="uploadFiles mb-6">
+                                        <div class="d-flex align-items-center justify-content-center flex-column">
+                                            <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                                            <p>اسحب الملف الى هنا</p>
+                                            <p>او</p>
+                                            <button>اختر ملف</button>
+                                            <p>تحميل (pdf,jpeg,png,jpg)</p>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
                           

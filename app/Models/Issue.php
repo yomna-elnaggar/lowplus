@@ -47,4 +47,8 @@ class Issue extends Model
     public function issuesCase() {
         return $this->belongsTo(IssuesCase::class, 'issues_case_id');
     }
+
+    public function sessions() {
+        return $this->hasMany(Session::class, 'issue_id');
+    }
 }

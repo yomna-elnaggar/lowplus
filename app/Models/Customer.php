@@ -28,4 +28,8 @@ class Customer extends Model
         'national_image' ,
         'files'
     ];
+
+    public function issues() {
+        return $this->hasMany(Issue::class, 'customer_id');
+    }
 }

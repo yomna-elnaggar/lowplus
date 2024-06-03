@@ -24,18 +24,24 @@
                     <div class="col-lg-4">
                         <div class="task-info">
                             <h4>  ملف الجلسة </h4>
-                            <div>
-                                <h6>  التاريخ : </h6>
-                                <p>  12/4/2024 </p>
-                            </div>
-                            <div>
-                                <h6> الموظف المسؤول  : </h6>
-                                <h5> تت </h5>
-                            </div>
-                            <div>
-                                <h6> الموظف المساعد : </h6>
-                                <h5> جاري  </h5>
-                            </div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <th class="ps-0" scope="row"> عنوان القضية :</th>
+                                        <td class="text-muted">{{ $session->issue->name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="ps-0" scope="row"> عنوان الجلسة :</th>
+                                        <td class="text-muted">{{ $session->name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="ps-0" scope="row"> التاريخ :</th>
+                                        <td class="text-muted">{{ \Carbon\Carbon::parse($session->sessionDateTime)->format('Y/m/d H:i') }}</td>
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
+                           
                         </div>
                     </div>
 
@@ -43,42 +49,61 @@
                         <div class="task-btns mb-4">
                             <button class="preview-route1"> العميل ,الخصم </button>
                             <button class="preview-route2"> المحكمة  </button>
-                            <button class="preview-route3"> وصف الجلسة  </button>
+                            <button class="preview-route3"> ملاحظات الجلسة  </button>
                             <button class="preview-route4"> متطلبات الجلسة  </button>
-                            <button class="preview-route5"> الملفات <span class="start-num"> 8 </span> </button>
+                            <button class="preview-route5"> الملفات  </button>
                         </div>
 
                         <div id="route1">
-                            <div class="col-lg-10">
+                            <div class="col-lg-12">
                                 <div class="task-info">
                                     <div class="row">
                                         <div class="col-lg-6">
-                                            <div>
-                                                <h6> اسم العميل:</h6>
-                                                <h5><a href="#">لقضية  1123</a></h5>
-                                            </div>
-                                            <div>
-                                                <h6> صفة العميل:</h6>
-                                                <h5>12/4/2024</h5>
-                                            </div>
-                                            <div>
-                                                <h6>الخصم:</h6>
-                                                <h5>جاري البدء</h5>
-                                            </div>
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <th class="ps-0" scope="row"> اسم العميل  :</th>
+                                                        <td class="text-muted">{{ $session->issue->customer->name }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="ps-0" scope="row"> صفة العميل  :</th>
+                                                        <td class="text-muted">{{ $session->issue->customer->type }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="ps-0" scope="row">هاتف العميل : </th>
+                                                        <td class="text-muted"> {{ $session->issue->customer->phone}} </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="ps-0" scope="row"> اسم الخصم :</th>
+                                                        <td class="text-muted">{{ $session->issue->contender_name }}</td>
+                                                    </tr>
+                                                   
+                                                </tbody>
+                                            </table>
                                         </div>
                                         <div class="col-lg-6">
-                                            <div>
-                                                <h6>رقم هاتف الخصم:</h6>
-                                                <h5>عاجل</h5>
-                                            </div>
-                                            <div>
-                                                <h6>عنوان الخصم:</h6>
-                                                <h5>عاجل</h5>
-                                            </div>
-                                            <div>
-                                                <h6>محامي الخصم :</h6>
-                                                <h5>م بمعنى كامل.</h5>
-                                            </div>
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <th class="ps-0" scope="row"> هاتف الخصم :</th>
+                                                        <td class="text-muted">{{ $session->issue->contender_phone }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="ps-0" scope="row"> عنوان الخصم :</th>
+                                                        <td class="text-muted">{{ $session->issue->IsuesType_name }}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <th class="ps-0" scope="row"> محامي الخصم :</th>
+                                                        <td class="text-muted">{{ $session->issue->contender_attorney }}</td>
+                                                    </tr>
+                                                    
+                                                    <tr>
+                                                        <th class="ps-0" scope="row">هاتف محامي الخصم : </th>
+                                                        <td class="text-muted"> {{ $session->issue->contender_phone}} </td>
+                                                    </tr>
+                                                   
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>
@@ -86,100 +111,87 @@
                             </div>
                         </div>
                         <div id="route2">
-                            <div class="col-lg-10">
+                            <div class="col-lg-12">
                                 <div class="task-info">
-                                    <h4>   المحكمة </h4>
-                                    <div>
-                                        <h6>     اسم المحكمة : </h6>
-                                        <h5> القضية رقم 1123 </h5>
-                                    </div>
-                                    <div>
-                                        <h6>  المدينة : </h6>
-                                        <h5> 12/4/2024 </h5>
-                                    </div>
-                                    <div>
-                                        <h6> الدائرة : </h6>
-                                        <h5> جاري البدء </h5>
-                                    </div>
-                                    <div>
-                                        <h6> درجة الترافع : </h6>
-                                        <h5> عاجل </h5>
-                                    </div>
-                                    <div>
-                                        <h6>  اسم القاضي : </h6>
-                                        <h5> عاجل </h5>
-                                    </div>
-                                   
+                                    <h4>  المحكمة</h4>
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <th class="ps-0" scope="row"> اسم المحكمة :</th>
+                                                <td class="text-muted">{{ $session->court }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="ps-0" scope="row">  اسم القاضي  :</th>
+                                                <td class="text-muted">{{ $session->judge_name}}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="ps-0" scope="row"> المدينة:</th>
+                                                <td class="text-muted">{{ $session->court_city }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="ps-0" scope="row">الدائرة  : </th>
+                                                <td class="text-muted"> {{ $session->court_crcle}} </td>
+                                            </tr>
+                                            <tr>
+                                                <th class="ps-0" scope="row"> درجة الترافع  :</th>
+                                                <td class="text-muted">{{ $session->pleading_degree }}</td>
+                                            </tr>
+                                            
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                         <div id="route3">
-                            <p> وصف الجلسة  </p>
+                            <h4> ملاحظات الجلسة  </h4>
+                            <p>{{ $session->note }}</p>
                         </div>
                         <div id="route4">
-                            <p> متطلبات الجلسة  </p> 
+                            <h4> متطلبات و رابط الجلسة  </h4> 
+                            <h6> <span>رابط الجلسة</span> <a href="{{$session->session_link }}"></a></h6>
+                            <p> {{ $session->session_require }}</p>
                         </div>
                         <div id="route5">
                             <div class="all-files">
                                 <div class="files-uploaded mb-3">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <i class="fa-light fa-file-lines"></i>
-                                            <div class="mx-3">
-                                                <h6> ملف الجلسة - pdf </h6>
-                                                <p class="mb-0"> عبد الحميد الس - 21/4/2024 - 12:00 AM </p>
-                                            </div>
-                                        </div>
-                                        <div class="dropdown">
-                                            <i class="fa-solid fa-ellipsis-vertical" id="dropdownMenuButton"
-                                                data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <div class="d-flex align-items-center justify-content-between sec">
-                                                    <p> تعديل </p>
-                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                </div>
-                                                <div
-                                                    class="d-flex align-items-center justify-content-between sec delet-sec">
-                                                    <p> حذف </p>
-                                                    <i class="fa-regular fa-trash-can"></i>
-                                                </div>
-
-                                            </div>
+                                    <button class="btn btn-primary mb-3" id="addFilesBtn">إضافة ملف</button>
+                                    <div class="uploaded">
+                                        <p>case_files.xlsx</p>
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <i class="fa-solid fa-eye"></i>
+                                            <i class="fa-solid fa-download"></i>
+                                            <i class="fa-regular fa-trash-can"></i>
                                         </div>
                                     </div>
-
+                                    <div class="uploaded">
+                                        <p>case_files.xlsx</p>
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <i class="fa-solid fa-eye"></i>
+                                            <i class="fa-solid fa-download"></i>
+                                            <i class="fa-regular fa-trash-can"></i>
+                                        </div>
+                                    </div>
+                                    <div class="uploaded">
+                                        <p>case_files.xlsx</p>
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <i class="fa-solid fa-eye"></i>
+                                            <i class="fa-solid fa-download"></i>
+                                            <i class="fa-regular fa-trash-can"></i>
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div class="files-uploaded mb-3">
-                                    <div class="d-flex align-items-center justify-content-between">
-                                        <div class="d-flex align-items-center">
-                                            <i class="fa-light fa-file-lines"></i>
-                                            <div class="mx-3">
-                                                <h6> ملف الجلسة - pdf </h6>
-                                                <p class="mb-0"> عبد الحميد السيد - 21/4/2024 - 12:00 AM </p>
-                                            </div>
-                                        </div>
-                                        <div class="dropdown">
-                                            <i class="fa-solid fa-ellipsis-vertical" id="dropdownMenuButton"
-                                                data-bs-toggle="dropdown" aria-expanded="false"></i>
-                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <div class="d-flex align-items-center justify-content-between sec">
-                                                    <p> تعديل </p>
-                                                    <i class="fa-solid fa-pen-to-square"></i>
-                                                </div>
-                                                <div
-                                                    class="d-flex align-items-center justify-content-between sec delet-sec">
-                                                    <p> حذف </p>
-                                                    <i class="fa-regular fa-trash-can"></i>
-                                                </div>
-
-                                            </div>
+                                <div class="container col-lg-8">
+                                    <div class="uploadFiles mb-6">
+                                        <div class="d-flex align-items-center justify-content-center flex-column">
+                                            <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                                            <p>اسحب الملف الى هنا</p>
+                                            <p>او</p>
+                                            <button>اختر ملف</button>
+                                            <p>تحميل (pdf,jpeg,png,jpg)</p>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
-                          
                         </div>
                         
                     </div>

@@ -69,8 +69,11 @@
     <!-- filter -->
     <div class="mb-4 mob-dir">
         <div class="d-flex align-items-center filt-dir">
-            <button class="search-btn-add"> <span> <i class="fa-solid fa-plus"></i> </span> <a href="{{url('/sessions/create')}}"> إضافة الجلسة جديدة
-            </a></button>
+            <button class="search-btn-add"> 
+                <a href="{{url('/sessions/create')}}" style="color: white; text-decoration: none;"> 
+                    <span> <i class="fa-solid fa-plus"></i> </span>إضافة الجلسة جديدة
+                </a>
+            </button>
             <div class="hide-p">
                 <div class="filter-collapse" data-bs-toggle="collapse" href="#collapseExample1" role="button"
                     aria-expanded="false" aria-controls="collapseExample1">
@@ -131,53 +134,54 @@
                     </th>
                     <th scope="col">العميل </th>
                     <th scope="col">عنوان القضية</th>
+                    <th scope="col"> عنوان الجلسة</th>
                     <th scope="col">المحكمة </th>
-                    <th scope="col"> الدائرة</th>
                     <th scope="col">الموظف المسؤول </th>
-                    <th scope="col">تاريخ الإضافة </th>
+                    <th scope="col"> وقت الجلسة</th>
                     <th scope="col">الإجراءات</th>
                 </tr>
             </thead>
             <tbody>
+                @foreach ($session as $item)
                 <tr>
                     <td> <input class="form-check-input checkall" type="checkbox" value="" id="flexCheckChecked"> </td>
                     
                     <td>
                         <div class="d-flex align-items-center justify-content-center">
-                            <div class="imgBx"><img src="assets/images/user-logo.jpg" alt=""></div>
-                            <div> العميل11</div>
+                            <div class="imgBx"><img src="{{$item->issue->customer->image}}" alt="{{$item->issue->customer->name}}"></div>
+                            <div>{{$item->issue->customer->name}} </div>
                         </div>
                         
                     </td>
                     <td>
-                        <div> 1القضية </div>
+                        <div> {{$item->issue->name}}</div>
                     </td>
                     <td>
-                        <div> المحكمة1 </div>
+                        <div> {{$item->name}} </div>
                     </td>
                     <td>
-                        <div> الدائرة  </div>
+                        <div> {{$item->court? $item->court :$item->issue->court}}</div>
                     </td>
                     <td>
                         <div> الموظف 1 </div>
                     </td>
                     <td>
-                        <div> 0102/2/1 </div>
+                        <div>{{ \Carbon\Carbon::parse($item->sessionDateTime)->format('Y/m/d H:i') }}</div>
                     </td>
                     <td>
                         <div class="d-flex align-items-center justify-content-center">
-                            <i class="fa-solid fa-eye"></i>
+                           <a href="{{route('sessions.show',$item->id)}}" ><i class="fa-solid fa-eye"></i> </a>
                             
                             <div class="dropdown">
                                 <i class="fa-solid fa-ellipsis-vertical" id="dropdownMenuButton"
                                     data-bs-toggle="dropdown" aria-expanded="false"></i>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <div class="d-flex align-items-center justify-content-between sec">
-                                        <p> تعديل </p>
+                                        <a href="{{route('sessions.edit',$item->id)}}" ><p> تعديل </p> </a>
                                         <i class="fa-solid fa-pen-to-square"></i>
                                     </div>
                                     <div class="d-flex align-items-center justify-content-between sec delet-sec">
-                                        <a  data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                        <a  data-bs-toggle="modal" data-bs-target="#deleteModal{{$item->id}}">
                                             <span> حذف </span>     
                                         </a>
                                         <i class="fa-regular fa-trash-can"></i>
@@ -190,7 +194,7 @@
                     </td>
                 </tr>
                 <!-- delete Modal  -->
-                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
+                <div class="modal fade" id="deleteModal{{$item->id}}" tabindex="-1" aria-labelledby="deleteModal" aria-hidden="true">
                     <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -198,19 +202,22 @@
                         
                         </div>
                         <div class="modal-body">
-                            <form action="#" method="POST">
+                            <form action="{{route('sessions.destroy',$item->id)}}" method="POST">
                                 @csrf
+                                @METHOD('DELETE')
                                 <h2 class="modal-title fs-5" id="deleteModal">   متأكد من حذف الجلسة ؟</h2>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">إغلاق</button>
-                                    <button type="button" class="btn btn-danger">حذف </button>
+                                    <button type="submit" class="btn btn-danger">حذف </button>
                                 </div>
                             </form>
                         </div>
                         
                     </div>
                     </div>
-                </div>
+                </div> 
+                @endforeach
+                
             </tbody>
         </table>
         <div class="d-flex align-items-center justify-content-between mt-2 pagen-parent">
