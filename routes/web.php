@@ -38,10 +38,12 @@ Route::resource('issues', IssuesController::class);
 Route::post('/issues/update-case/{id}', [IssuesController::class, 'updateCase']);
 Route::post('/issues/update-phase/{id}', [IssuesController::class, 'updatePhase']);
 
-
+Route::view('calendar', 'dashboard.calendar');
 
 Route::resource('issues_type', IssuesTypeController::class);
 Route::resource('issues_case', IssuesCaseController::class);
 Route::resource('issues_phase', IssuesPhaseController::class);
 Route::resource('sessions', SessionController::class);
+
+Route::get('calendar', [SessionController::class, 'calendar'])->name('sessions.calendar');
 Auth::routes();

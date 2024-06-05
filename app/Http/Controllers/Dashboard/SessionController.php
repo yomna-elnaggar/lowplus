@@ -175,4 +175,17 @@ class SessionController extends Controller
 
         return redirect()->back()->with('success', 'Session deleted successfully');
     }
+    public function calendar()
+    {
+        $sessions = Session::all(['id', 'name', 'sessionDateTime'])->map(function($session) {
+            return [
+                'title' => $session->name,
+                'start' => $session->sessionDateTime,
+                'url' => route('sessions.show', $session->id)
+            ];
+        });
+
+        return view('dashboard.calendar', compact('sessions'));
+    }
+
 }

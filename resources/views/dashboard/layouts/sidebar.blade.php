@@ -66,7 +66,7 @@
 
             <div class="d-flex justify-content-start align-items-center my-2 sidebar-link ">
                 <span class="sidebar-menu-icon"><i class="fa-solid fa-ballot-check"></i></span>
-                <h6 class="mx-3 side-links"> المهام </h6>
+                <h6 class="mx-3 side-links"> <a href="{{ route('sessions.calendar') }}">التقويم</a> </h6>
             </div>
 
         </div>
