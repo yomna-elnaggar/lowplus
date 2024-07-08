@@ -64,9 +64,36 @@
                 <h6 class="mx-3 side-links"><a href="{{url('/sessions')}}"> الجلسات </a></h6>
             </div>
 
+
             <div class="d-flex justify-content-start align-items-center my-2 sidebar-link ">
                 <span class="sidebar-menu-icon"><i class="fa-solid fa-ballot-check"></i></span>
                 <h6 class="mx-3 side-links"> <a href="{{ route('sessions.calendar') }}">التقويم</a> </h6>
             </div>
+
+            <div class="col-lg-12 mb-2 hide-p">
+                <div class="d-flex justify-content-between align-items-center collapseLink my-2 sidebar-link"
+                    data-bs-toggle="collapse" href="#collapseEmp" role="button" aria-expanded="false"
+                    aria-controls="collapseEmp">
+                    <div class="d-flex align-items-center">
+                        <span class="sidebar-menu-icon"><i class="fa-solid fa-users"></i></span>
+                        <h6 class="mx-3">  الموظفين </h6>
+                    </div>
+
+                    <div>
+                        <i class="fa-solid fa-angle-down coll-icon"></i>
+                        <i class="fa-solid fa-angle-up coll-icon2"></i>
+                    </div>
+                </div>
+
+                <div class="collapse collapse-mob" id="collapseEmp">
+                    <div class="collapse-links">
+                        <h6 class="active coll-links"><a href="{{url('/employee')}}">  الموظفين </a></h6>
+                        <h6 class="coll-links"><a href="{{url('/category')}}"> الاقسام و المسمى الوظيفي   </a></h6>
+                        <h6 class="coll-links"><a href="{{url('/role')}}">الصلاحيات  </a></h6>
+
+                    </div>
+                </div>
+            </div>
+
 
         </div>

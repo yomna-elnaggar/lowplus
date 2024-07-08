@@ -20,4 +20,8 @@ class Category extends Model
     {
         return $this->belongsToMany(Governorate::class, 'gover_categories', 'category_id', 'governorate_id');
     }
+
+    public function employees() {
+        return $this->hasMany(User::class, 'category_id');
+    }
 }

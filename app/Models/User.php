@@ -31,7 +31,12 @@ class User extends Authenticatable
         'password',
         'status',
         'phone',
-        'created_by'
+        'created_by',
+        'salary',
+        'address',
+        'national_id',
+        'category_id',
+        'jobtitle_id',
     ];
 
     /**
