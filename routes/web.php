@@ -7,6 +7,7 @@ use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\CustomerController;
 use App\Http\Controllers\Dashboard\EmployeeController;
 use App\Http\Controllers\Dashboard\JobtitleController;
+use App\Http\Controllers\Dashboard\TaxtypesController;
 use App\Http\Controllers\Dashboard\IssuesCaseController;
 use App\Http\Controllers\Dashboard\IssuesTypeController;
 use App\Http\Controllers\Dashboard\IssuesPhaseController;
@@ -56,6 +57,9 @@ Route::post('/jobtitle/update-status', [JobtitleController::class, 'updateStatus
 Route::post('/category/update-status', [CategoryController::class, 'updateStatus'])->name('category.update-status');
 
 Route::get('calendar', [SessionController::class, 'calendar'])->name('sessions.calendar');
+
+Route::resource('taxtype', TaxtypesController::class);
+Route::post('/taxtype/update-status', [TaxtypesController::class, 'updateStatus'])->name('taxtype.updateStatus');
 
 Route::view('role', 'dashboard.employee.role');
 Route::view('role/create', 'dashboard.employee.roleForm');

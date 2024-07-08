@@ -95,5 +95,12 @@
                 </div>
             </div>
 
+            <div class="d-flex justify-content-start align-items-center my-2 sidebar-link">
+                <span class="sidebar-menu-icon"><i class="fa-solid fa-file-invoice-dollar"></i></span>
+                <h6 class="mx-3 side-links"><a href="{{url('/taxtype')}}"> الضرائب </a></h6>
+            </div>
+
+            
+
 
         </div>
